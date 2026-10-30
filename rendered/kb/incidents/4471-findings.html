@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>#4471 &middot; two date problems in one ticket &middot; support kb</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fbfaf7; --fg: #1d1d1b; --muted: #6b6a66; --line: #e3e0d8;
+        --accent: #2f6f5e; --warn: #b4501f; --warn-bg: #fbeee6;
+        --mono: ui-monospace, "Cascadia Code", Menlo, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171716; --fg: #ecebe6; --muted: #9c9a93; --line: #34332f;
+          --accent: #6fbfa6; --warn: #f0905d; --warn-bg: #3a2418;
+        }
+      }
+      body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, sans-serif; }
+      .kb { max-width: 760px; margin: 0 auto; padding: 2rem 16px 4rem; }
+      .crumb { color: var(--muted); font: 0.8rem var(--mono); text-decoration: none; }
+      h1 { margin: 0.25rem 0 0.5rem; line-height: 1.2; }
+      h2 { margin-top: 2rem; }
+      .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0; color: var(--muted); font-size: 0.85rem; }
+      .status { border: 1px solid var(--line); border-radius: 99px; padding: 0 0.6rem; }
+      a { color: var(--accent); }
+      code { font: 0.88em var(--mono); }
+      table { width: 100%; margin: 1rem 0; border-collapse: collapse; font-size: 0.92rem; }
+      th, td { padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--line); text-align: left; }
+      .tags, .note { color: var(--muted); font-size: 0.85em; }
+      .wrong td { background: var(--warn-bg); }
+      .wrong td:last-child { color: var(--warn); font-weight: 600; }
+      .sum { font-size: 1.1rem; }
+      .stamp { margin: 2rem 0 0; color: var(--muted); font: 0.85rem var(--mono); }
+      .stamp b { color: var(--accent); letter-spacing: 0.04em; }
+      footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; }
+    </style>
+  </head>
+  <body>
+    <article class="kb">
+      <header>
+        <a class="crumb" href="/kb">support desk &middot; kb</a>
+        <h1>#4471 &middot; two date problems in one ticket</h1>
+        <p class="meta">
+          <span>owner <b>support desk</b></span>
+          <span class="status">living</span>
+          <span>reviewed 2026-10-31 &middot; 0 days ago</span>
+        </p>
+      </header>
+
+      <main>
+        <p>Ticket #4471 contains reports for two different date problems. The export has overlapping
+          pages, so count each report ID once. Classify by the tenant's date order, booking form, and
+          intake channel; the browser's intake tag is not the cause.</p>
+
+        <h2>Date parser reads day-first dates as month-first</h2>
+        <p>The shared parser treats the month as the first part of every date. For tenants whose locale
+          writes the day first, the parser can swap the day and month. This affects app and email
+          reports, and form reports for the <code>booking-v2</code> form.</p>
+
+        <h2>Booking form hint conflicts with tenant date order</h2>
+        <p>The <code>booking-v3</code> form tells people to enter dates month first, but the form reads
+          them using the tenant's day-first locale. A form report from a <code>booking-v3</code> tenant
+          therefore has a different cause from a parser report, even though both can show a swapped date.</p>
+
+        <h2>Re-triage</h2>
+        <p class="sum"><strong>412</strong> reports merged into #4471 &middot; <strong>2</strong> causes</p>
+        <table>
+          <thead>
+            <tr>
+              <th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>parser</code></td>
+              <td>379</td>
+              <td class="tags">parser &times;356 &middot; hint &times;23</td>
+              <td>11</td>
+              <td>2026-04-01 &rarr; 2026-10-04</td>
+              <td>#4471</td>
+            </tr>
+            <tr class="wrong">
+              <td><code>hint</code></td>
+              <td>33</td>
+              <td class="tags">hint &times;18 &middot; parser &times;15</td>
+              <td>3</td>
+              <td>2026-04-17 &rarr; 2026-09-22</td>
+              <td>not this ticket &mdash; no ticket of its own</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+
+        <p>The desk merged both causes into one known ticket. Track them separately so each issue has
+          one cause and one report count. The cause table deduplicates report IDs and derives each
+          count from the exported records. Some intake tags disagree with the tenant and channel data,
+          so do not use those tags to split the work.</p>
+
+        <ul>
+          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2">Date parser flips day-first dates &mdash; issue #2</a></li>
+          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1">Booking-v3 date hint conflicts with tenant locale &mdash; issue #1</a></li>
+        </ul>
+
+        <p class="stamp">desk ref <b>DR-KQ9D-AV9H</b></p>
+      </main>
+      <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+    </article>
+  </body>
+</html>

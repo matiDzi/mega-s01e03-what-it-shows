@@ -31,6 +31,11 @@ src/lib/data/       exports from the ticket system
 
 Support desk. Decision records: whoever signed them.
 
+## Ticket #4471 findings
+
+- Source page: `src/routes/kb/incidents/4471-findings/+page.svx`
+- Rendered desk view: `rendered/kb/incidents/4471-findings.html`
+
 ---
 
 Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
