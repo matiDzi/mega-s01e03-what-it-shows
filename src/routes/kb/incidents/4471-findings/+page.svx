@@ -37,4 +37,7 @@ one cause and one report count. The cause table deduplicates report IDs and deri
 count from the exported records. Some intake tags disagree with the tenant and channel data,
 so do not use those tags to split the work.
 
+- [Date parser flips day-first dates — issue #1](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1)
+- [Booking-v3 date hint conflicts with tenant locale — issue #2](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2)
+
 <RenderStamp {signature} />
