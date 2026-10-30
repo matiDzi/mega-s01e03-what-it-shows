@@ -1,0 +1,40 @@
+---
+layout: runbook
+title: '#4471 · two date problems in one ticket'
+owner: support desk
+status: living
+reviewed: 2026-10-31
+signature: matiDzi
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+Ticket #4471 contains reports for two different date problems. The export has overlapping
+pages, so count each report ID once. Classify by the tenant's date order, booking form, and
+intake channel; the browser's intake tag is not the cause.
+
+## Date parser reads day-first dates as month-first
+
+The shared parser treats the month as the first part of every date. For tenants whose locale
+writes the day first, the parser can swap the day and month. This affects app and email
+reports, and form reports for the `booking-v2` form.
+
+## Booking form hint conflicts with tenant date order
+
+The `booking-v3` form tells people to enter dates month first, but the form reads them using
+the tenant's day-first locale. A form report from a `booking-v3` tenant therefore has a
+different cause from a parser report, even though both can show a swapped date.
+
+## Re-triage
+
+<CauseTable ticket={4471} />
+
+The desk merged both causes into one known ticket. Track them separately so each issue has
+one cause and one report count. The cause table deduplicates report IDs and derives each
+count from the exported records. Some intake tags disagree with the tenant and channel data,
+so do not use those tags to split the work.
+
+<RenderStamp {signature} />
