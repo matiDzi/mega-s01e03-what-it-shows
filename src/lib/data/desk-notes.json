@@ -1,9 +1,9 @@
 {
-  "oneDayMove": [
+  "calendarDayMismatch": [
     "R-41202",
     "R-41209",
-    "R-41236",
     "R-41344",
     "R-41620"
-  ]
+  ],
+  "inviteBeforeBooking": ["R-41236"]
 }

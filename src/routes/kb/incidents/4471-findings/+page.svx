@@ -1,9 +1,9 @@
 ---
 layout: runbook
-title: '#4471 · two date problems in one ticket'
+title: '#4471 · four evidence groups in one ticket'
 owner: support desk
 status: living
-reviewed: 2026-10-31
+reviewed: 2026-11-02
 signature: matiDzi
 ---
 
@@ -12,15 +12,15 @@ signature: matiDzi
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-Ticket #4471 contains reports for two different date problems. The export has overlapping
-pages, so count each report ID once. Classify by the tenant's date order, booking form, and
-intake channel; the browser's intake tag is not the cause.
+Ticket #4471 contains 412 distinct reports across four evidence groups. The export has
+overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once.
+The browser's intake tag is not the cause.
 
-## Date parser reads day-first dates as month-first
+## Shared parser reads day-first dates as month-first
 
 The shared parser treats the month as the first part of every date. For tenants whose locale
-writes the day first, the parser can swap the day and month. This affects app and email
-reports, and form reports for the `booking-v2` form.
+writes the day first, the parser can swap the day and month. This group covers the remaining
+app and email reports, and day-first tenant form reports from `booking-v2`.
 
 ## Booking form hint conflicts with tenant date order
 
@@ -28,16 +28,30 @@ The `booking-v3` form tells people to enter dates month first, but the form read
 the tenant's day-first locale. A form report from a `booking-v3` tenant therefore has a
 different cause from a parser report, even though both can show a swapped date.
 
+## Calendar date appears one day earlier
+
+Four reports describe a calendar date appearing one day earlier than expected, not a
+day/month swap: R-41202, R-41209, R-41344, and R-41620. The reports suggest a calendar or
+date-boundary issue, but do not prove a timezone cause. Reproduce before asserting the cause.
+
+## Invite arrives before booking
+
+R-41236 says the invite arrived before the reporter made the booking. It does not describe
+a day/month swap or a `booking-v3` hint conflict. Track it as a separate event-ordering
+report; its cause also needs reproduction.
+
 ## Re-triage
 
 <CauseTable ticket={4471} />
 
-The desk merged both causes into one known ticket. Track them separately so each issue has
-one cause and one report count. The cause table deduplicates report IDs and derives each
-count from the exported records. Some intake tags disagree with the tenant and channel data,
-so do not use those tags to split the work.
+The parser issue remains in #4471. The booking-v3 hint, one-day calendar mismatches, and
+pre-booking invite are tracked separately. The table deduplicates report IDs and derives
+each count from the exported records. The five desk-noted reports are classified by their
+bodies, not forced into the parser group by tenant metadata.
 
 - [Date parser flips day-first dates — issue #2](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2)
 - [Booking-v3 date hint conflicts with tenant locale — issue #1](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1)
+- [One-day calendar date mismatches — issue #3](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/3)
+- [Invite arrives before booking — issue #4](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/4)
 
 <RenderStamp {signature} />
