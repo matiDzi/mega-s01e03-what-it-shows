@@ -18,7 +18,7 @@ Since April, people have told us their bookings land on the wrong day: a month f
 **Triage complete.** See [#4471 findings](./4471-findings/) for the analysis.
 
 <Callout>
-Open. Two issues filed: [parser](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2) (374 reports) and [hint](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1) (33 reports).
+Open. Two issues filed: [hint #5](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/5) (33 reports) and [parser #6](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/6) (374 reports).
 </Callout>
 
 ## What was merged

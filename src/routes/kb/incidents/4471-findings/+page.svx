@@ -32,7 +32,7 @@ The table deduplicates report IDs and derives each count from the exported recor
 
 <CauseTable ticket={4471} />
 
-- [Date parser flips day-first dates — issue #2](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2)
-- [Booking-v3 date hint conflicts with tenant locale — issue #1](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1)
+- [Booking-v3 date hint conflicts with tenant locale — issue #5](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/5)
+- [Date parser flips day-first dates — issue #6](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/6)
 
 <RenderStamp {signature} />
