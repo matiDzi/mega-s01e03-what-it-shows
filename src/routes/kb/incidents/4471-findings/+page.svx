@@ -12,19 +12,15 @@ signature: v1.eyJzdWIiOiIzNjc3IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-Ticket #4471 contains 412 distinct reports. The export has overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once. Two causes explain 407 reports; five desk-reviewed reports show date anomalies that need reproduction.
+Ticket #4471 contains 412 distinct reports across two causes. The export has overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once.
 
 ## Shared parser reads day-first dates as month-first
 
-The shared parser treats the month as the first part of every date. For tenants whose locale writes the day first, the parser can swap the day and month. This group covers the remaining app and email reports, and day-first tenant form reports from `booking-v2`. **374 reports.**
+The shared parser treats the month as the first part of every date. For tenants whose locale writes the day first, the parser can swap the day and month. This group covers the remaining app and email reports, and day-first tenant form reports from `booking-v2`. **379 reports**, including five desk-reviewed anomalies that need reproduction: R-41202, R-41209, R-41236, R-41344, and R-41620.
 
 ## Booking form hint conflicts with tenant date order
 
 The `booking-v3` form tells people to enter dates month first, but the form reads them using the tenant's day-first locale. A form report from a `booking-v3` tenant therefore has a different cause from a parser report, even though both can show a swapped date. **33 reports.**
-
-## Desk-reviewed anomalies
-
-Five reports describe date anomalies that do not fit the parser or hint bugs: R-41202, R-41209, R-41236, R-41344, and R-41620. The reports suggest calendar, timezone, or event-ordering issues, but do not prove a cause. These are noted here and need reproduction.
 
 ## Analysis
 
@@ -32,7 +28,7 @@ The table deduplicates report IDs and derives each count from the exported recor
 
 <CauseTable ticket={4471} />
 
-- [Booking-v3 date hint conflicts with tenant locale — issue #5](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/5)
-- [Date parser flips day-first dates — issue #6](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/6)
+- [Booking-v3 date hint conflicts with tenant locale — issue #7](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/7)
+- [Date parser flips day-first dates — issue #8](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/8)
 
 <RenderStamp {signature} />
