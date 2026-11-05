@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>#4471 &middot; four evidence groups in one ticket &middot; support kb</title>
+    <title>#4471 · dates parse mm/dd in day-first tenants · support kb</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -40,99 +40,35 @@
   <body>
     <article class="kb">
       <header>
-        <a class="crumb" href="/kb">support desk &middot; kb</a>
-        <h1>#4471 &middot; four evidence groups in one ticket</h1>
+        <a class="crumb" href="/kb">support desk · kb</a>
+        <h1>#4471 · dates parse mm/dd in day-first tenants</h1>
         <p class="meta">
           <span>owner <b>support desk</b></span>
           <span class="status">living</span>
-          <span>reviewed 2026-11-02 &middot; 0 days ago</span>
+          <span>reviewed 2026-11-05 · today</span>
         </p>
       </header>
-
-      <main>
-        <p>Ticket #4471 contains 412 distinct reports across four evidence groups. The export has
-          overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once.
-          The browser's intake tag is not the cause.</p>
-
-        <h2>Shared parser reads day-first dates as month-first</h2>
-        <p>The shared parser treats the month as the first part of every date. For tenants whose locale
-          writes the day first, the parser can swap the day and month. This group covers the remaining
-          app and email reports, and day-first tenant form reports from <code>booking-v2</code>.</p>
-
-        <h2>Booking form hint conflicts with tenant date order</h2>
-        <p>The <code>booking-v3</code> form tells people to enter dates month first, but the form reads
-          them using the tenant's day-first locale. A form report from a <code>booking-v3</code> tenant
-          therefore has a different cause from a parser report, even though both can show a swapped date.</p>
-
-        <h2>Calendar date appears one day earlier</h2>
-        <p>Four reports describe a calendar date appearing one day earlier than expected, not a
-          day/month swap: R-41202, R-41209, R-41344, and R-41620. The reports suggest a calendar or
-          date-boundary issue, but do not prove a timezone cause. Reproduce before asserting the cause.</p>
-
-        <h2>Invite arrives before booking</h2>
-        <p>R-41236 says the invite arrived before the reporter made the booking. It does not describe
-          a day/month swap or a <code>booking-v3</code> hint conflict. Track it as a separate event-ordering
-          report; its cause also needs reproduction.</p>
-
-        <h2>Re-triage</h2>
-        <p class="sum"><strong>412</strong> reports merged into #4471 &middot; <strong>4</strong> evidence groups</p>
-        <table>
-          <thead>
-            <tr>
-              <th>evidence group</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>tracking</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>parser</code></td>
-              <td>374</td>
-              <td class="tags">parser &times;351 &middot; hint &times;23</td>
-              <td>11</td>
-              <td>2026-04-01 &rarr; 2026-10-04</td>
-              <td>#4471</td>
-            </tr>
-            <tr class="wrong">
-              <td><code>hint</code></td>
-              <td>33</td>
-              <td class="tags">hint &times;18 &middot; parser &times;15</td>
-              <td>3</td>
-              <td>2026-04-17 &rarr; 2026-09-22</td>
-              <td>separate issue</td>
-            </tr>
-            <tr class="wrong">
-              <td><code>calendar-day-mismatch</code></td>
-              <td>4</td>
-              <td class="tags">parser &times;4</td>
-              <td>4</td>
-              <td>2026-04-02 &rarr; 2026-10-04</td>
-              <td>separate issue</td>
-            </tr>
-            <tr class="wrong">
-              <td><code>invite-before-booking</code></td>
-              <td>1</td>
-              <td class="tags">parser &times;1</td>
-              <td>1</td>
-              <td>2026-04-20 &rarr; 2026-04-20</td>
-              <td>separate issue</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p>The parser issue remains in #4471. The booking-v3 hint, one-day calendar mismatches, and
-          pre-booking invite are tracked separately. The table deduplicates report IDs and derives
-          each count from the exported records. The five desk-noted reports are classified by their
-          bodies, not forced into the parser group by tenant metadata.</p>
-
-        <ul>
-          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2">Date parser flips day-first dates &mdash; issue #2</a></li>
-          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1">Booking-v3 date hint conflicts with tenant locale &mdash; issue #1</a></li>
-          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/3">One-day calendar date mismatches &mdash; issue #3</a></li>
-          <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/4">Invite arrives before booking &mdash; issue #4</a></li>
-        </ul>
-
-        <p class="stamp">desk ref <b>DR-KQ9D-AV9H</b></p>
-      </main>
-      <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+      <p>Ticket #4471 contains 412 distinct reports. The export has overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once. Two causes explain 407 reports; five desk-reviewed reports show date anomalies that need reproduction.</p>
+      <h2>Shared parser reads day-first dates as month-first</h2>
+      <p>The shared parser treats the month as the first part of every date. For tenants whose locale writes the day first, the parser can swap the day and month. This group covers the remaining app and email reports, and day-first tenant form reports from <code>booking-v2</code>. <strong>374 reports.</strong></p>
+      <h2>Booking form hint conflicts with tenant date order</h2>
+      <p>The <code>booking-v3</code> form tells people to enter dates month first, but the form reads them using the tenant's day-first locale. A form report from a <code>booking-v3</code> tenant therefore has a different cause from a parser report, even though both can show a swapped date. <strong>33 reports.</strong></p>
+      <h2>Desk-reviewed anomalies</h2>
+      <p>Five reports describe date anomalies that do not fit the parser or hint bugs: R-41202, R-41209, R-41236, R-41344, and R-41620. The reports suggest calendar, timezone, or event-ordering issues, but do not prove a cause. These are noted here and need reproduction.</p>
+      <h2>Analysis</h2>
+      <p><strong>407</strong> reports categorized · <strong>2</strong> causes</p>
+      <table>
+        <thead><tr><th>evidence group</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>tracking</th></tr></thead>
+        <tbody>
+          <tr><td><code>parser</code></td><td>374</td><td></td><td></td><td></td><td>#2</td></tr>
+          <tr><td><code>hint</code></td><td>33</td><td></td><td></td><td></td><td>#1</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2">Date parser flips day-first dates — issue #2</a></li>
+        <li><a href="https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1">Booking-v3 date hint conflicts with tenant locale — issue #1</a></li>
+      </ul>
+      <p class="stamp">signed <b>matiDzi</b></p>
     </article>
   </body>
 </html>
