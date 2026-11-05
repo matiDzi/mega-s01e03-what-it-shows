@@ -1,9 +1,9 @@
 ---
 layout: runbook
-title: '#4471 · four evidence groups in one ticket'
+title: '#4471 · dates parse mm/dd in day-first tenants'
 owner: support desk
 status: living
-reviewed: 2026-11-02
+reviewed: 2026-11-05
 signature: matiDzi
 ---
 
@@ -12,46 +12,27 @@ signature: matiDzi
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-Ticket #4471 contains 412 distinct reports across four evidence groups. The export has
-overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once.
-The browser's intake tag is not the cause.
+Ticket #4471 contains 412 distinct reports. The export has overlapping pages: it holds 427 rows, including 15 repeated report IDs. Count each ID once. Two causes explain 407 reports; five desk-reviewed reports show date anomalies that need reproduction.
 
 ## Shared parser reads day-first dates as month-first
 
-The shared parser treats the month as the first part of every date. For tenants whose locale
-writes the day first, the parser can swap the day and month. This group covers the remaining
-app and email reports, and day-first tenant form reports from `booking-v2`.
+The shared parser treats the month as the first part of every date. For tenants whose locale writes the day first, the parser can swap the day and month. This group covers the remaining app and email reports, and day-first tenant form reports from `booking-v2`. **374 reports.**
 
 ## Booking form hint conflicts with tenant date order
 
-The `booking-v3` form tells people to enter dates month first, but the form reads them using
-the tenant's day-first locale. A form report from a `booking-v3` tenant therefore has a
-different cause from a parser report, even though both can show a swapped date.
+The `booking-v3` form tells people to enter dates month first, but the form reads them using the tenant's day-first locale. A form report from a `booking-v3` tenant therefore has a different cause from a parser report, even though both can show a swapped date. **33 reports.**
 
-## Calendar date appears one day earlier
+## Desk-reviewed anomalies
 
-Four reports describe a calendar date appearing one day earlier than expected, not a
-day/month swap: R-41202, R-41209, R-41344, and R-41620. The reports suggest a calendar or
-date-boundary issue, but do not prove a timezone cause. Reproduce before asserting the cause.
+Five reports describe date anomalies that do not fit the parser or hint bugs: R-41202, R-41209, R-41236, R-41344, and R-41620. The reports suggest calendar, timezone, or event-ordering issues, but do not prove a cause. These are noted here and need reproduction.
 
-## Invite arrives before booking
+## Analysis
 
-R-41236 says the invite arrived before the reporter made the booking. It does not describe
-a day/month swap or a `booking-v3` hint conflict. Track it as a separate event-ordering
-report; its cause also needs reproduction.
-
-## Re-triage
+The table deduplicates report IDs and derives each count from the exported records. The desk-noted reports are classified by their bodies.
 
 <CauseTable ticket={4471} />
 
-The parser issue remains in #4471. The booking-v3 hint, one-day calendar mismatches, and
-pre-booking invite are tracked separately. The table deduplicates report IDs and derives
-each count from the exported records. The five desk-noted reports are classified by their
-bodies, not forced into the parser group by tenant metadata.
-
 - [Date parser flips day-first dates — issue #2](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/2)
 - [Booking-v3 date hint conflicts with tenant locale — issue #1](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/1)
-- [One-day calendar date mismatches — issue #3](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/3)
-- [Invite arrives before booking — issue #4](https://github.com/matiDzi/mega-s01e03-what-it-shows/issues/4)
 
 <RenderStamp {signature} />

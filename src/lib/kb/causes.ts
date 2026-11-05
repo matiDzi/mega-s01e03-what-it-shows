@@ -17,8 +17,8 @@ export type Report = {
 
 export type Tenant = { handle: string; name: string; locale: string; form: 'booking-v2' | 'booking-v3' };
 
-export type Cause = 'parser' | 'hint' | 'calendar-day-mismatch' | 'invite-before-booking';
-export const CAUSES: readonly Cause[] = ['parser', 'hint', 'calendar-day-mismatch', 'invite-before-booking'];
+export type Cause = 'parser' | 'hint';
+export const CAUSES: readonly Cause[] = ['parser', 'hint'];
 
 // What each booking form prints under its date field.
 const DATE_HINT: Record<Tenant['form'], string> = {

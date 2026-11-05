@@ -7,10 +7,9 @@
   let { ticket }: { ticket: number } = $props();
 
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
-  const reviewedCauses: Record<string, Cause> = {};
-  for (const id of notes.calendarDayMismatch) reviewedCauses[id] = 'calendar-day-mismatch';
-  for (const id of notes.inviteBeforeBooking) reviewedCauses[id] = 'invite-before-booking';
-  const groups = $derived(groupByCause(merged, tenantOf, reviewedCauses));
+  const oneDayMove = new Set(notes.oneDayMove || []);
+  const filtered = $derived(merged.filter((r) => !oneDayMove.has(r.id)));
+  const groups = $derived(groupByCause(filtered, tenantOf));
   const owner = $derived(ticketCause(groups, ticket));
   const tags = (g: { taggedAs: Record<string, number> }) =>
     Object.entries(g.taggedAs)
@@ -20,7 +19,7 @@
 </script>
 
 <p class="sum">
-  <strong>{merged.length}</strong> reports merged into #{ticket} ·
+  <strong>{filtered.length}</strong> reports categorized ·
   <strong>{groups.length}</strong>
   {groups.length === 1 ? 'cause' : 'causes'}
 </p>
